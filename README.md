@@ -1,5 +1,7 @@
 # Cypress Starter — lokalni test framework
 
+URl: https://aldinqabalic.github.io/cypress-playwright-starter/
+
 Osnovni Cypress projekt za automatizirano testiranje web stranica.
 
 ## 1. Instalacija
