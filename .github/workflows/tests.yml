@@ -1,0 +1,49 @@
+name: Test i objavi izvještaj
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 7 * * *'   # svaki dan u 07:00 UTC
+  workflow_dispatch:       # dozvoljava i ručno pokretanje sa GitHub-a
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instaliraj zavisnosti
+        run: npm ci
+
+      - name: Instaliraj Playwright browsere
+        run: npx playwright install --with-deps
+
+      - name: Pokreni Playwright testove
+        run: npx playwright test
+        continue-on-error: true
+
+      - name: Pripremi izvještaj za Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: playwright-report
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Objavi na GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

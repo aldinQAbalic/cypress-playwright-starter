@@ -8,5 +8,5 @@ module.exports = defineConfig({
     headless: true,
   },
 
-  reporter: 'list',
+  reporter: [['html', { open: 'never' }]],
 });
