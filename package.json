@@ -1,7 +1,7 @@
 {
   "name": "cypress-starter",
   "version": "1.0.0",
-  "description": "Osnovni Cypress test framework za web automatizaciju",
+  "description": "Osnovni Cypress/Playwright test framework za web automatizaciju",
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
